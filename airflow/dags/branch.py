@@ -67,11 +67,10 @@ def branch():
     second = second_task()
     third = third_task()
     fourth =fourth_task()
-    decider = decider_task()
     fifth = fifth_task()
     sixth = sixth_task()
 
-    first >> [second, third, fourth] >> decider >> [fifth, sixth]
+    first >> [second, third, fourth] >> decider_task() >> [fifth, sixth]
 
 
 branch()
