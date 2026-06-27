@@ -1,8 +1,10 @@
 from airflow.sdk import dag, task
-
+from pendulum import datatime
 
 @dag(
-        dag_id= branch
+        dag_id= "branch",
+        schedule="@daily",
+        is_paused_uppon_creation=False
 )
 def branch():
     
