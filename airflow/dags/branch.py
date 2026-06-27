@@ -69,3 +69,4 @@ def branch():
     first >> second >> third
 
 
+branch()
