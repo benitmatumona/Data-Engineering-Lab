@@ -1,10 +1,11 @@
 from airflow.sdk import dag, task
 from pendulum import datatime
+from airflow.timetables.trigger import CrontriggerTimetable
 
 
 @dag(
         dag_id= "branch",
-        start_date = datetime(year=2026, month=6, day=27, tz="south africa"),
+        start_date = CrontriggerTimetable("0 16 * * MON-+FRI", tz="africa/south africa"),
         schedule="@daily",
         is_paused_uppon_creation=False
 )
@@ -22,7 +23,7 @@ def branch():
         ti = kwargs["ti"]
         print("this is the second task")
         fetched_data = ti.xcom_pull(task_id=first_task, key="returned result")
-        processed_data = [num * 2 for num in fetched_data["data"]]
+        processed_data = [num * 2 for num in fetched_data+["data"]]
         ti.xcom_push(key="result", value={"data": processed_data})
         
     
