@@ -5,7 +5,7 @@ from airflow.timetables.trigger import CrontriggerTimetable
 
 @dag(
         dag_id= "branch",
-        start_date = CrontriggerTimetable("0 16 * * MON-+FRI", tz="africa/south africa"),
+        start_date = CrontriggerTimetable("0 16 * * MON-FRI", tz="africa/south africa"),
         schedule="@daily",
         is_paused_uppon_creation=False
 )
