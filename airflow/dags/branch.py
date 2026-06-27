@@ -66,7 +66,8 @@ def branch():
     first = first_task()
     second = second_task()
     third = third_task()
-    first >> second >> third
+    fourth =fourth_task()
+    fifth = fifth_task()
 
 
 branch()
