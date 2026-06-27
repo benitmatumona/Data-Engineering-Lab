@@ -39,7 +39,7 @@ def branch():
         ti.xcom_push(key="result", value={"data": processed_data})
 
     @task.branch
-    def decider(**kwargs):
+    def decider_task(**kwargs):
         ti = kwargs["ti"]
         task1_value = ti.xcom_pull(task_id=first_task, key="returned result")
         if task1_value["processed"] == "true":
@@ -67,8 +67,11 @@ def branch():
     second = second_task()
     third = third_task()
     fourth =fourth_task()
+    decider = decider_task()
     fifth = fifth_task()
     sixth = sixth_task()
+
+    first >> [second, third, fourth] >> decider_task >> [fifth, sixth]
 
 
 branch()
