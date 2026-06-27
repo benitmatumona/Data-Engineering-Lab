@@ -71,7 +71,7 @@ def branch():
     fifth = fifth_task()
     sixth = sixth_task()
 
-    first >> [second, third, fourth] >> decider_task >> [fifth, sixth]
+    first >> [second, third, fourth] >> decider >> [fifth, sixth]
 
 
 branch()
