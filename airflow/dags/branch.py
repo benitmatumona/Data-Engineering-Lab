@@ -10,7 +10,7 @@ def first_dag():
     def first_task(**kwargs):
         ti = kwargs["ti"]
         print("this is the first task")
-        fetched_data = {"data": [1, 2, 3]}
+        fetched_data = {"data": [1, 2, 3], "process": "true"}
         ti.xcom_push(key="returned result", value=fetched_data)
     
     @task.python
@@ -29,6 +29,22 @@ def first_dag():
         fetched_data = ti.xcom_pull(task_id=second_task, key="result")
         processed_data = [num ** 3 for num in fetched_data["data"]]
         ti.xcom_push(key="result", value={"data": processed_data})
+
+    @task.python
+    def fourth_task(**kwargs):
+        ti = kwargs["ti"]
+        print("this is the fourth task")
+        fetched_data = ti.xcom_pull(task_id=third_task, key="result")
+        processed_data = [num for num in fetched_data["data"]]
+        ti.xcom_push(key="result", value={"data": processed_data})
+
+    @task.branch
+    def decider(**kwargs):
+        ti = kwargs["ti"]
+        task1_value = ti.xcom_pull(task_id=first_task, key="returned result")
+        if task1_value["processed"] == "true":
+            return "fifth_task"
+        return "six_task"
 
     
     first = first_task()
