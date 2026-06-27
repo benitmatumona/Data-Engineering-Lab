@@ -63,7 +63,6 @@ def first_dag():
         processed_data = ["process was false"]
         ti.xcom_push(key="result", value={"data": processed_data})
 
-    
     first = first_task()
     second = second_task()
     third = third_task()
