@@ -56,7 +56,12 @@ def first_dag():
         processed_data = [fetched_data1, fetched_data2, fetched_data3]
         ti.xcom_push(key="result", value={"data": processed_data})
 
-        
+    @task.python
+    def sixth_task(**kwargs):
+        ti = kwargs["ti"]
+        print("this is the sixth task")
+        processed_data = ["process was false"]
+        ti.xcom_push(key="result", value={"data": processed_data})
 
     
     first = first_task()
