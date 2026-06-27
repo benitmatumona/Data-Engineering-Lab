@@ -46,6 +46,18 @@ def first_dag():
             return "fifth_task"
         return "six_task"
 
+    @task.python
+    def fifth_task(**kwargs):
+        ti = kwargs["ti"]
+        print("this is the fifth task")
+        fetched_data1 = ti.xcom_pull(task_id=second_task, key="result")
+        fetched_data2 = ti.xcom_pull(task_id=third_task, key="result")
+        fetched_data3 = ti.xcom_pull(task_id=fourth_task, key="result")
+        processed_data = [fetched_data1, fetched_data2, fetched_data3]
+        ti.xcom_push(key="result", value={"data": processed_data})
+
+        
+
     
     first = first_task()
     second = second_task()
