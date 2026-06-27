@@ -6,7 +6,7 @@ from airflow.timetables.trigger import DeltatriggerTimetable
 @dag(
         dag_id= "branch",
         start_date = datetime(year=2026, month=6, day=27, tz="africa/south africa"),
-        schedule = DeltatriggerTimetable(duration, tz="africa/south africa"),
+        schedule = DeltatriggerTimetable(duration(day=3), tz="africa/south africa"),
         schedule="@daily",
         is_paused_uppon_creation=False
 )
