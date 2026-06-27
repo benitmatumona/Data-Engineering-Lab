@@ -3,7 +3,7 @@ from pendulum import datatime
 
 @dag(
         dag_id= "branch",
-        start_date = date(year=2026, month=6, day=27, tz="south africa")
+        start_date = datetime(year=2026, month=6, day=27, tz="south africa"),
         schedule="@daily",
         is_paused_uppon_creation=False
 )
