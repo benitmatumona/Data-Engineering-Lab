@@ -4,7 +4,7 @@ from airflow.sdk import dag, task
 @dag(
         dag_id= branch
 )
-def first_dag():
+def branch():
     
     @task.python
     def first_task(**kwargs):
@@ -67,3 +67,5 @@ def first_dag():
     second = second_task()
     third = third_task()
     first >> second >> third
+
+
